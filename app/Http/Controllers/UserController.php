@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::with('company')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -24,7 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -35,7 +40,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::create($request->only([
+            'name', 'email', 'password',
+        ]));
+
+        $company = new Company();
+        $company->name = $request->input('company');
+        $company->address = $request->input('address');
+        $company->phone = $request->input('phone');
+
+        $user->company()->save($company);
+
+        return to_route('users.index');
     }
 
     /**

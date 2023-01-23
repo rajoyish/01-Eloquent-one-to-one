@@ -20,7 +20,7 @@ class CompanyFactory extends Factory
             'name' => fake()->company(),
             'address' => fake()->address(),
             'phone' => fake()->phoneNumber(),
-            'user_id' => fake()->numberBetween(1, 10),
+            'user_id' => fake()->unique()->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
         ];
     }
 }
