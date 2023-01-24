@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Phone;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -50,6 +51,11 @@ class UserController extends Controller
         $company->phone = $request->input('phone');
 
         $user->company()->save($company);
+
+        // Createing phone separately for phones database
+        $phone = new Phone();
+        $phone->number = $request->input('phone');
+        $user->phone()->save($phone);
 
         return to_route('users.index');
     }

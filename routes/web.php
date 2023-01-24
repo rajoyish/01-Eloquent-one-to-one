@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -32,5 +33,6 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('companies', CompanyController::class);
 Route::resource('users', UserController::class);
+Route::resource('phoness', PhoneController::class);
 
 require __DIR__.'/auth.php';
